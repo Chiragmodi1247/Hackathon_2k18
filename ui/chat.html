@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        (function() {
+          var URL = "http://chat.dbpedia.org"
+          window.onload = function() {
+            var iframe = document.createElement("iframe");
+            iframe.setAttribute("src", URL + "/embed");
+            iframe.setAttribute("frameBorder", 0);
+            iframe.style.zIndex = 10000000;
+            iframe.style.height = "100%";
+            iframe.style.width = "40%";
+            iframe.style.position = "fixed";
+            iframe.style.bottom = "20px";
+            iframe.style.left = "20px";
+            iframe.style.display = "none";
+      
+            document.body.appendChild(iframe);
+            window.addEventListener("message", receiveMessage, false);
+            function receiveMessage(event) {
+              if(event.origin == URL && event.data == "dbpedia-chatbot-embed-loaded") {
+                iframe.style.display = "block";
+              }
+            }
+          }
+        })();
+      </script>
+</body>
+</html>
