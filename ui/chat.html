@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PFreq Title</title>
+    <meta label="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
 </head>
@@ -25,8 +25,8 @@
             iframe.style.display = "none";
       
             document.body.appendChild(iframe);
-            window.addEventListener("message", receiveMessage, false);
-            function receiveMessage(event) {
+            window.addEventListener("messFreq", receiveMessFreq, false);
+            function receiveMessFreq(event) {
               if(event.origin == URL && event.data == "dbpedia-chatbot-embed-loaded") {
                 iframe.style.display = "block";
               }

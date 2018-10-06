@@ -45,13 +45,13 @@
                 sortOrder: "none",
                 ignoreSmallSegments: {
                     enabled: !1,
-                    valueType: "percentage",
+                    valueType: "percentFreq",
                     value: null
                 },
                 smallSegmentGrouping: {
                     enabled: !1,
                     value: 1,
-                    valueType: "percentage",
+                    valueType: "percentFreq",
                     label: "Other",
                     color: "#cccccc"
                 },
@@ -60,19 +60,19 @@
             labels: {
                 outer: {
                     format: "label",
-                    hideWhenLessThanPercentage: null,
+                    hideWhenLessThanPercentFreq: null,
                     pieDistance: 30
                 },
                 inner: {
-                    format: "percentage",
-                    hideWhenLessThanPercentage: null
+                    format: "percentFreq",
+                    hideWhenLessThanPercentFreq: null
                 },
                 mainLabel: {
                     color: "#333333",
                     font: "arial",
                     fontSize: 10
                 },
-                percentage: {
+                percentFreq: {
                     color: "#dddddd",
                     font: "arial",
                     fontSize: 10,
@@ -131,7 +131,7 @@
                 },
                 gradient: {
                     enabled: !1,
-                    percentage: 95,
+                    percentFreq: 95,
                     color: "#000000"
                 },
                 canvasPadding: {
@@ -234,9 +234,9 @@
             },
             applySmallSegmentGrouping: function (a, b) {
                 var c;
-                "percentage" === b.valueType && (c = i.getTotalPieSize(a));
+                "percentFreq" === b.valueType && (c = i.getTotalPieSize(a));
                 for (var d = [], e = [], f = 0, g = 0; g < a.length; g++)
-                    if ("percentage" === b.valueType) {
+                    if ("percentFreq" === b.valueType) {
                         var h = a[g].value / c * 100;
                         if (h <= b.value) {
                             e.push(a[g]), f += a[g].value;
@@ -444,12 +444,12 @@
                 }).attr("class", a.cssPrefix + "segmentMainLabel-" + b).text(function (a, b) {
                     var c = a.label;
                     return e.formatter ? (h.index = b, h.part = "mainLabel", h.value = a.value, h.label = c, c = e.formatter(h)) : e.truncation.enabled && a.label.length > e.truncation.truncateLength && (c = a.label.substring(0, e.truncation.truncateLength) + "..."), c
-                }).style("font-size", e.mainLabel.fontSize + "px").style("font-family", e.mainLabel.font).style("fill", e.mainLabel.color), d.percentage && g.append("text").attr("id", function (c, d) {
-                    return a.cssPrefix + "segmentPercentage" + d + "-" + b
-                }).attr("class", a.cssPrefix + "segmentPercentage-" + b).text(function (a, b) {
-                    var c = a.percentage;
-                    return e.formatter ? (h.index = b, h.part = "percentage", h.value = a.value, h.label = a.percentage, c = e.formatter(h)) : c += "%", c
-                }).style("font-size", e.percentage.fontSize + "px").style("font-family", e.percentage.font).style("fill", e.percentage.color), d.value && g.append("text").attr("id", function (c, d) {
+                }).style("font-size", e.mainLabel.fontSize + "px").style("font-family", e.mainLabel.font).style("fill", e.mainLabel.color), d.percentFreq && g.append("text").attr("id", function (c, d) {
+                    return a.cssPrefix + "segmentPercentFreq" + d + "-" + b
+                }).attr("class", a.cssPrefix + "segmentPercentFreq-" + b).text(function (a, b) {
+                    var c = a.percentFreq;
+                    return e.formatter ? (h.index = b, h.part = "percentFreq", h.value = a.value, h.label = a.percentFreq, c = e.formatter(h)) : c += "%", c
+                }).style("font-size", e.percentFreq.fontSize + "px").style("font-family", e.percentFreq.font).style("fill", e.percentFreq.color), d.value && g.append("text").attr("id", function (c, d) {
                     return a.cssPrefix + "segmentValue" + d + "-" + b
                 }).attr("class", a.cssPrefix + "segmentValue-" + b).text(function (a, b) {
                     return h.index = b, h.part = "value", h.value = a.value, h.label = a.value, e.formatter ? e.formatter(h, a.value) : a.value
@@ -460,11 +460,11 @@
                 var d = d3.selectAll("." + a.cssPrefix + "labelGroup-" + b);
                 d.each(function (c, d) {
                     var e = d3.select(this).selectAll("." + a.cssPrefix + "segmentMainLabel-" + b),
-                        f = d3.select(this).selectAll("." + a.cssPrefix + "segmentPercentage-" + b),
+                        f = d3.select(this).selectAll("." + a.cssPrefix + "segmentPercentFreq-" + b),
                         g = d3.select(this).selectAll("." + a.cssPrefix + "segmentValue-" + b);
                     j["dimensions-" + b].push({
                         mainLabel: null !== e.node() ? e.node().getBBox() : null,
-                        percentage: null !== f.node() ? f.node().getBBox() : null,
+                        percentFreq: null !== f.node() ? f.node().getBBox() : null,
                         value: null !== g.node() ? g.node().getBBox() : null
                     })
                 });
@@ -481,14 +481,14 @@
                             return f[b].mainLabel.height
                         });
                         break;
-                    case "label-percentage1":
-                        d3.selectAll("." + a.cssPrefix + "segmentPercentage-" + b).attr("dx", function (a, b) {
+                    case "label-percentFreq1":
+                        d3.selectAll("." + a.cssPrefix + "segmentPercentFreq-" + b).attr("dx", function (a, b) {
                             return f[b].mainLabel.width + e
                         });
                         break;
-                    case "label-percentage2":
-                        d3.selectAll("." + a.cssPrefix + "segmentPercentage-" + b).attr("dx", function (a, b) {
-                            return f[b].mainLabel.width / 2 - f[b].percentage.width / 2
+                    case "label-percentFreq2":
+                        d3.selectAll("." + a.cssPrefix + "segmentPercentFreq-" + b).attr("dx", function (a, b) {
+                            return f[b].mainLabel.width / 2 - f[b].percentFreq.width / 2
                         }).attr("dy", function (a, b) {
                             return f[b].mainLabel.height
                         })
@@ -551,8 +551,8 @@
                 c.append("path").attr("d", d).attr("stroke", function (b, c) {
                     return "segment" === a.options.labels.lines.color ? a.options.colors[c] : a.options.labels.lines.color
                 }).attr("stroke-width", 1).attr("fill", "none").style("opacity", function (b, c) {
-                    var d = a.options.labels.outer.hideWhenLessThanPercentage,
-                        e = null !== d && b.percentage < d || "" === a.options.data.content[c].label;
+                    var d = a.options.labels.outer.hideWhenLessThanPercentFreq,
+                        e = null !== d && b.percentFreq < d || "" === a.options.data.content[c].label;
                     return e ? 0 : 1
                 })
             },
@@ -582,11 +582,11 @@
                 setTimeout(function () {
                     var b = "default" === a.options.effects.load.effect ? 400 : 1;
                     d3.selectAll("." + a.cssPrefix + "labelGroup-outer").transition().duration(b).style("opacity", function (b, c) {
-                        var d = a.options.labels.outer.hideWhenLessThanPercentage;
-                        return null !== d && b.percentage < d ? 0 : 1
+                        var d = a.options.labels.outer.hideWhenLessThanPercentFreq;
+                        return null !== d && b.percentFreq < d ? 0 : 1
                     }), d3.selectAll("." + a.cssPrefix + "labelGroup-inner").transition().duration(b).style("opacity", function (b, c) {
-                        var d = a.options.labels.inner.hideWhenLessThanPercentage;
-                        return null !== d && b.percentage < d ? 0 : 1
+                        var d = a.options.labels.inner.hideWhenLessThanPercentFreq;
+                        return null !== d && b.percentFreq < d ? 0 : 1
                     }), d3.selectAll("g." + a.cssPrefix + "lineGroups").transition().duration(b).style("opacity", 1), g.isFunction(a.options.callbacks.onload) && setTimeout(function () {
                         try {
                             a.options.callbacks.onload()
@@ -605,21 +605,21 @@
                     case "value":
                         c = !0;
                         break;
-                    case "percentage":
+                    case "percentFreq":
                         d = !0;
                         break;
                     case "label-value1":
                     case "label-value2":
                         b = !0, c = !0;
                         break;
-                    case "label-percentage1":
-                    case "label-percentage2":
+                    case "label-percentFreq1":
+                    case "label-percentFreq2":
                         b = !0, d = !0
                 }
                 return {
                     mainLabel: b,
                     value: c,
-                    percentage: d
+                    percentFreq: d
                 }
             },
             computeOuterLabelCoords: function (a) {
@@ -663,8 +663,8 @@
                 }
             },
             isLabelHidden: function (a, b) {
-                var c = a.options.labels.outer.hideWhenLessThanPercentage;
-                return null !== c && d.percentage < c || "" === a.options.data.content[b].label
+                var c = a.options.labels.outer.hideWhenLessThanPercentFreq;
+                return null !== c && d.percentFreq < c || "" === a.options.data.content[b].label
             },
             adjustLabelPos: function (a, b, c, d) {
                 var e, f, g, h;
@@ -741,7 +741,7 @@
                 });
                 b.append("stop").attr("offset", "0%").style("stop-color", function (b, c) {
                     return a.options.colors[c]
-                }), b.append("stop").attr("offset", a.options.misc.gradient.percentage + "%").style("stop-color", a.options.misc.gradient.color)
+                }), b.append("stop").attr("offset", a.options.misc.gradient.percentFreq + "%").style("stop-color", a.options.misc.gradient.color)
             },
             addSegmentEventHandlers: function (a) {
                 var b = d3.selectAll("." + a.cssPrefix + "arc,." + a.cssPrefix + "labelGroup-inner,." + a.cssPrefix + "labelGroup-outer");
@@ -938,7 +938,7 @@
                     return "caption" === a.options.tooltips.type && (d = b.caption), m.replacePlaceholders(a, d, c, {
                         label: b.label,
                         value: b.value,
-                        percentage: b.percentage
+                        percentFreq: b.percentFreq
                     })
                 }), b.selectAll("." + a.cssPrefix + "tooltip rect").attr("width", function (b, c) {
                     var d = g.getDimensions(a.cssPrefix + "tooltip" + c);
@@ -1041,8 +1041,8 @@
     };
     var o = function () {
             this.options.data.content = i.sortPieData(this), this.options.data.smallSegmentGrouping.enabled && (this.options.data.content = g.applySmallSegmentGrouping(this.options.data.content, this.options.data.smallSegmentGrouping)), this.options.colors = g.initSegmentColors(this), this.totalSize = i.getTotalPieSize(this.options.data.content);
-            for (var a = this.options.labels.percentage.decimalPlaces, b = 0; b < this.options.data.content.length; b++) this.options.data.content[b].percentage = q(this.options.data.content[b].value, this.totalSize, a);
-            for (var c = 0, d = 0; d < this.options.data.content.length; d++) d === this.options.data.content.length - 1 && (this.options.data.content[d].percentage = (100 - c).toFixed(a)), c += parseFloat(this.options.data.content[d].percentage)
+            for (var a = this.options.labels.percentFreq.decimalPlaces, b = 0; b < this.options.data.content.length; b++) this.options.data.content[b].percentFreq = q(this.options.data.content[b].value, this.totalSize, a);
+            for (var c = 0, d = 0; d < this.options.data.content.length; d++) d === this.options.data.content.length - 1 && (this.options.data.content[d].percentFreq = (100 - c).toFixed(a)), c += parseFloat(this.options.data.content[d].percentFreq)
         },
         p = function () {
             this.svg = g.addSVGSpace(this), this.textComponents = {
