@@ -1,46 +1,70 @@
+<!DOCTYPE HTML>
 <html>
-
-<head></head>
-
-<body>
-
-<div id="myPie"></div>
-
-<script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-
-<script src="d3pie.js"></script>
-
+<head>
 <script>
-    const data=[
-            { label: "JavaScript", value: 50 },
-            { label: "Ruby", value: 20 },
-            { label: "Java", value: 30},
-        ]
-    var pie = new d3pie("myPie", {
-    header: {
-        title: {
-            text: "A very simple example pie"
-        }
-    },
-    data: {
-        content: data
-     },
- 
-    //Here further operations/animations can be added like click event, cut out the clicked pie section.
-     callbacks: {
-        onMouseoverSegment: function(info) {
-            console.log("mouse in", info);
-        },
-        onMouseoutSegment: function(info) {
-            console.log("mouseout:", info);
-        }
-    }
-      
+window.onload = function() {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", 
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Desktop Browser Market Share in 2016"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 270,
+        toolTipContent: "<b>{label}</b>: {y}%",
+       	radius: 100,
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: [
+			{ y: 51.08, label: "Chrome" },
+			{ y: 27.34, label: "Internet Explorer" },
+			{ y: 10.62, label: "Firefox" },
+            { y: 25.4, label: "Father" },
+            { y: 5.02, label: "Microsoft Edge" },
+			{ y: 4.07, label: "Safari" },
+			{ y: 1.22, label: "Opera" },
+			{ y: 0.44, label: "Others" }
+		]
+	}]
 });
+chart.render();
 
+var chart = new CanvasJS.Chart("chartContainer1", {
+
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Top Oil Reserves"
+	},
+	axisY: {
+		title: "Reserves(MMbbl)"
+	},
+	data: [{        
+		type: "column",  
+		dataPoints: [      
+			{ y: 300878, label: "Venezuela" },
+			{ y: 456023, label: "India" },
+			{ y: 266455,  label: "Saudi" },
+			{ y: 169709,  label: "Canada" },
+			{ y: 158400,  label: "Iran" },
+			{ y: 142503,  label: "Iraq" },
+			{ y: 101500, label: "Kuwait" },
+			{ y: 97800,  label: "UAE" },
+			{ y: 80000,  label: "Russia" }
+	
+	}]
+});
+chart.render();
+
+}
 </script>
-
-
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; float:left; width: 40%;"></div>
+<div id="chartContainer1" style="height: 300px; float: left; width: 20%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-
 </html>
